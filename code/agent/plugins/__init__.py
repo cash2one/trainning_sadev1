@@ -4,7 +4,7 @@ import memory
 import load
 
 monitor = {
-    'cpu':cpu.monitor,
-    'memory':memory.monitor,
-    'load':load.monitor,
+    'cpu': cpu.monitor,
+    'memory': memory.monitor,
+    'load': load.monitor,
 }

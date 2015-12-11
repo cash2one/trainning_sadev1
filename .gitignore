@@ -1,0 +1,10 @@
+### Python template
+*.py[cod]
+
+
+
+
+## Pycharm file:
+.idea/
+
+
