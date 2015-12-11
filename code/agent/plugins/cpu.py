@@ -9,8 +9,9 @@ Description:
 Changelog:
 '''
 from psutil import cpu_times_percent
+from datetime import datetime
 
-def monitor():
+def cpu_info():
      cpu_monitor = cpu_times_percent()
      return {
         #前三个属性所有平台都有
@@ -41,7 +42,13 @@ def monitor():
         if hasattr(cpu_monitor,'guest_nice') else '',
     }
 
-
+def monitor():
+    return {
+        'cpu_monitor':cpu_info(),
+        'timestamp':str(datetime.now()),
+    }
 if __name__ == '__main__':
-    print monitor()
+    from pprint import pprint
+
+    pprint(monitor())
 

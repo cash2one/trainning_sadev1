@@ -10,11 +10,14 @@ Changelog:
 '''
 
 import optparse
-import os
 import sys
 import logging
+import time
+import sched
 
 import plugins
+from pprint import pprint
+
 
 #命令行参数解析
 def parse_args():
@@ -42,19 +45,36 @@ def parse_args():
                     )
     return parse
 
+def show_version():
+    print 'Agent:1.0'
+    sys.exit(0)
+
+# 监控任务
+def run_monitor(module):
+    monitor = plugins.monitor
+    if module == 'all':
+        for key in monitor.keys():
+            pprint(monitor[key]())
+    else:
+        pprint(monitor[module]())
+
+
+#任务调度器
+s = sched.scheduler(time.time,time.sleep)
+def perform(ttl,module):
+    s.enter(ttl,0,perform,(ttl,module))
+    run_monitor(module)
+
+def work_shedule(ttl,module):
+    s.enter(0,0,perform,(ttl,module))
+    s.run()
+
 if __name__ == '__main__':
-    from pprint import pprint
 
     options,remainder = parse_args().parse_args(sys.argv[1:])
 
-    cpu_monitor = plugins.cpu.monitor
-   #  load_monitor = plugins.load.monitor
-    # memory_monitor = plugins.memory.monitor
-
-    monitors = {'cpu':cpu_monitor,}
-
     if options.version:
-        print 'Agent:1.0'
+        show_version()
         sys.exit(0)
 
     if options.ttl:
@@ -65,10 +85,9 @@ if __name__ == '__main__':
             exit(-1)
 
     if options.module not in ['cpu','memory','load','all']:
-        logging.warning('Invalid module,avaliable modules are cpu,memory,load,all')
+        logging.warning('Invalid module,avaliable modules are {cpu,memory,load,all}')
         exit(-1)
-    elif options.module == 'cpu':
-        pprint(monitors['cpu']())
     else:
-        pass
+        work_shedule(int(options.ttl),options.module)
+        sys.exit(0)
 

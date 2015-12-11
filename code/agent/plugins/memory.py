@@ -9,8 +9,10 @@ Description:
 Changelog:
 '''
 from psutil import virtual_memory
+from psutil import swap_memory
+from datetime import datetime
 
-def monitor():
+def vir_mem_info():
      mem_monitor = virtual_memory()
      return {
         #前三个属性所有平台都有
@@ -41,7 +43,25 @@ def monitor():
 
     }
 
+def swap_mem_info():
+    swap_monitor = swap_memory()
 
+    return {
+        'total':swap_monitor.total,
+        'used':swap_monitor.used,
+        'free':swap_monitor.free,
+        'percent':swap_monitor.percent,
+        'sin':swap_monitor.sin,
+        'sout':swap_monitor.sout,
+    }
+
+def monitor():
+    return {
+       'mem_vir_monitor':vir_mem_info(),
+       'mem_swap_monitor':swap_mem_info(),
+        'timestamp':str(datetime.now())
+    }
 if __name__ == '__main__':
-    print monitor()
+    from pprint import pprint
+    pprint(monitor())
 
