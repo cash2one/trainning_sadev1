@@ -1,7 +1,8 @@
-##Linux常用监控指标
+#stage1设计文档
 Author: Abner Kang
 
 Email:abner.kang.dev@gmail.com
+##Linux常用监控指标
 ###1.内存
 ####1.1 监控信息的获取：free
 
@@ -257,12 +258,46 @@ Email:abner.kang.dev@gmail.com
 * st: steal
 
 
+##stage1设计方案
+###1.采集方式
+* CPU,Memory的采集是使用python的psutil库进行采集
+* 平均负载直接读取/proc/loadavg文件获取
 
+###2.组织方式
+**考虑到监控指标的变化性和多样性，这样就导致代码可能随时地变化以适应采集指标的变化，于是我们采用了插件式的方式，每增加一个采集指标只需要在/plugins目录下面添加对应的文件即可,提高代码的可维护性**
+**通过agent.py文件来对各个采集指标进行统一管理，由agent来发起对插件的调用而采集对应的数据. 可通过plugins/__init__.py文件来对需要采集的指标进行控制**
 
+**agent代码结构如下所示**
 
+	├── agent.py
+	├── deploy
+	│   ├── run.sh
+	│   └── supervisor.conf
+	└── plugins
+		├── cpu.py
+		├── __init__.py
+		├── load.py
+		├── memory.py
 
+	
+###3.部署方式
+**使用进程管理工具supervisor来管理agent进程,因为agent需要一直采集数据，所以要让agent进程能不停的运行下去**
+**supervisor.conf如下所示**
 
+	[supervisord]
+	logfile = /tmp/supervisord.log
+	pidfile = /tmp/supervisord.pid
+	logfile_maxbytes = 50MB
+	loglevel = info
+	logfile_backups = 1
+	
+	[program:agent]
+	; the .py path according to the dockefile
+	command = python /code/agent/agent.py -m all
+	process_name=%(program_name)s
 
+**使用脚本run.sh来对进程进行控制**
 
-
- 
+	./run.sh start   	# 启动agent
+	./run.sh stop    	# 停止agent
+	./run.sh restart 	# 重启agent
