@@ -23,8 +23,8 @@ RUN pip install -r /home/monitor/misc/requirement.txt
 
 EXPOSE 5000
 
-ENTRYPOINT ['python']
+ENTRYPOINT ["python"]
 
-CMD ['./code/run.py', 'runserver', '--host 0.0.0.0']
+CMD ["./code/run.py", "runserver", "--host 0.0.0.0"]
 
 
