@@ -3,7 +3,7 @@ FROM ubuntu:latest
 MAINTAINER Abner Kang <abner.kang.dev@gmail.com>
 
 RUN apt-get update && \
-    apt-get install -y ncurses \ 
+    apt-get install -y ncurses-base \ 
                        python \
                        python-dev \
                        python-pip \
