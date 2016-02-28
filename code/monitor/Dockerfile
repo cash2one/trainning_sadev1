@@ -14,7 +14,8 @@ RUN mkdir -p /home/monitor
 
 WORKDIR /home/monitor
 
-ADD .code/monitor /home/monitor
+ADD .code /home/monitor/code
+ADD .misc /home/monitor/misc
 
 RUN pip install -r /home/monitor/misc/requirement.txt
 
