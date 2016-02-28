@@ -25,6 +25,6 @@ EXPOSE 5000
 
 # ENTRYPOINT ["python"]
 
-CMD ["python","./code/run.py", "runserver", "--host 0.0.0.0"]
-
+# CMD ["python","./code/run.py", "runserver", "--host 0.0.0.0"]
+CMD ["python", "--version"]
 
