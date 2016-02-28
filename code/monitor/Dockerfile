@@ -8,9 +8,6 @@ RUN apt-get update && \
                        python-dev \
                        python-pip \
                        build-essential \
-    && apt-get clean \
-    && apt-get autoclean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #RUN mkdir -p /home/monitor
 
