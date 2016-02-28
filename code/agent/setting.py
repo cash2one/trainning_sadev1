@@ -20,9 +20,9 @@ def get_ip_info():
 			address = item[1][0].address
 	return address
 
-SERVER = os.environ.get('SERVER_HOST',get_ip_info())
+SERVER = os.environ.get('SERVER_HOST',"localhost")
 PORT = os.environ.get("PORT","5000")
-ENDPOINT = get_ip_info() 
+ENDPOINT = get_ip_info()
 TAGS = ["dev","sa"]
 
 metric = {
