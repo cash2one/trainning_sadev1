@@ -12,14 +12,14 @@ RUN apt-get update && \
     && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir -p /home/monitor
+#RUN mkdir -p /home/monitor
 
-WORKDIR /home/monitor
+#WORKDIR /home/monitor
 
-ADD ./code /home/monitor/code
-ADD ./misc /home/monitor/misc
+#ADD ./code /home/monitor/code
+#ADD ./misc /home/monitor/misc
 
-RUN pip install -r /home/monitor/misc/requirement.txt
+#RUN pip install -r /home/monitor/misc/requirement.txt
 
 EXPOSE 5000
 
