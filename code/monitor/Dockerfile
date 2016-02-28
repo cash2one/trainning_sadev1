@@ -2,11 +2,11 @@ FROM ubuntu:latest
 
 MAINTAINER Abner Kang <abner.kang.dev@gmail.com>
 
-RUN apt-get update && \
-    apt-get install -y ncurses-base  ncurses-dev \ 
-                       python-dev \
-                       python-pip \
-                       build-essential 
+#RUN apt-get update && \
+#    apt-get install -y ncurses-base  ncurses-dev \ 
+#                       python-dev \
+#                       python-pip \
+#                       build-essential 
 
 #RUN mkdir -p /home/monitor
 
@@ -17,7 +17,7 @@ RUN apt-get update && \
 
 #RUN pip install -r /home/monitor/misc/requirement.txt
 
-EXPOSE 5000
+#EXPOSE 5000
 
 # ENTRYPOINT ["python"]
 
