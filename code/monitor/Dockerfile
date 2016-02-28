@@ -22,5 +22,5 @@ MAINTAINER Abner Kang <abner.kang.dev@gmail.com>
 # ENTRYPOINT ["python"]
 
 # CMD ["python","./code/run.py", "runserver", "--host 0.0.0.0"]
-CMD ["python", "--version"]
+CMD python --version
 
