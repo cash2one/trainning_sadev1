@@ -4,7 +4,6 @@ MAINTAINER Abner Kang <abner.kang.dev@gmail.com>
 
 RUN apt-get update && \
     apt-get install -y ncurses-base  ncurses-dev \ 
-                       python \
                        python-dev \
                        python-pip \
                        build-essential 
