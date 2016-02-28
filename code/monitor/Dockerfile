@@ -7,7 +7,7 @@ RUN apt-get update && \
                        python \
                        python-dev \
                        python-pip \
-                       build-essential \
+                       build-essential 
 
 #RUN mkdir -p /home/monitor
 
