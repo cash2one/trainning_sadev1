@@ -1,0 +1,16 @@
+monitor:
+  image: daocloud.io/trainning_sadev1/monitor:master-15c88a8
+  ports:
+    - 6767:5000/tcp
+  environment:
+    - MONGODB_PORT=27017
+    - MONGODB_DATABASE=monitor
+    - MONGODB_HOST=123.58.164.100
+
+ui:
+  image: daocloud.io/trainning_sadev1/ui:master-init
+  ports:
+    - 80:7777/tcp
+  restart: always
+  links:
+    - monitor:server_api

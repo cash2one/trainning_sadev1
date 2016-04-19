@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NetEaseFreshMan</title>
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/metisMenu.min.css" rel="stylesheet">
+    <link href="../static/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../static/chosen/chosen.min.css" rel="stylesheet">
+    <!--jQuery-->
+    <script src="../static/js_libs/jquery.min.js"></script>
+    <!--<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>-->
+
+    <!--bootstrap-->
+    <script src="../static/js_libs/bootstrap.min.js"></script>
+
+    <script src="../static/js_libs/metisMenu.min.js"></script>
+    <script src="../static/js_libs/bootstrap-datetimepicker.min.js"></script>
+
+    <!--Highcharts-->
+    <script src="../static/js_libs/highcharts.js"></script>
+
+    <script src="../static/js_libs/sb-admin-2.js"></script>
+    <script src="../static/chosen/chosen.jquery.min.js"></script>
+    <script src="../static/js/utils.js"></script>
+    <script src="../static/js/cmp.js"></script>
+
+</head>
+
+<body>
+
+    <div id="wapper">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">NetEase FreshMan</a>
+            </div>
+            <ul class="nav navbar-top-links navbar-left">
+                <li><a href="index.html">单机器数据</a></li>
+                <li><a href="cmp.html">多机器对比</a></li>
+            </ul>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a><i class="fa fa-fw"></i>多机-监控机器的IP</a>
+                        </li>
+                        <li>
+                            <select data-placeholder="IP" class="form-control chosen-select" multiple id="ip-select">
+                                <!--<option value="all">All</option>-->
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+        <div class="container">
+            <h1>CPU,Memory,Load data info</h1>
+        </div>
+        <div class="container">
+            <!-- CPU Info-->
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> CPU Info Chart
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select class="form-control" id="cpu-category-select">
+                                <option value ="user">user</option>
+                                <option value ="nice">nice</option>
+                                <option value="system">system</option>
+                                <option value="idle">idle</option>
+                                <option value="iowait">iowait</option>
+                                <option value="irq">irq</option>
+                                <option value="softirq">softirq</option>
+                                <option value="steal">steal</option>
+                                <option value="guest">guest</option>
+                                <option value="guest_nice">guest_nice</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">From</span>
+                                <input type="text" id="cpu-from" class="form_datetime form-control" placeholder="From">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">To</span>
+                                <input type="text" id="cpu-to" class="form_datetime form-control" placeholder="To">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <button class="btn btn-primary" id="cpu-search">搜索</button>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default btn-time" btn-type="cpus" timerange="one_hour">最近一小时</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="cpus" timerange="six_hour">最近六小时</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="cpus" timerange="one_day">最近一天</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="cpus" timerange="one_week">最近一周</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="cpus" timerange="two_week">最近两周</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="cpus" timerange="one_month">最近一个月</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="cpu-container" style="min-width:800px;height:400px"></div>
+                </div>
+            </div>
+        </div>
+
+
+            <!-- Load Info-->
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Load Info Chart
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select class="form-control" id="load-category-select">
+                                <option value ="w1_avg">w1_avg</option>
+                                <option value ="w5_avg">w5_avg</option>
+                                <option value="w15_avg">w15_avg</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">From</span>
+                                <input type="text" id="load-from" class="form_datetime form-control" placeholder="From">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">To</span>
+                                <input type="text" id="load-to" class="form_datetime form-control" placeholder="To">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <button class="btn btn-primary" id="load-search">搜索</button>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default btn-time" btn-type="loads" timerange="one_hour">最近一小时</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="loads" timerange="six_hour">最近六小时</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="loads" timerange="one_day">最近一天</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="loads" timerange="one_week">最近一周</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="loads" timerange="two_week">最近两周</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="loads" timerange="one_month">最近一个月</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="load-container" style="min-width:800px;height:400px"></div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Memory Info-->
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Memory Info Chart
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select class="form-control" id="memory-category-select">
+                                <option value ="total">total</option>
+                                <option value ="used">used</option>
+                                <option value="abs_used">abs_used</option>
+                                <option value="free">free</option>
+                                <option value="buffers">buffers</option>
+                                <option value="cached">cached</option>
+                                <option value="active">active</option>
+                                <option value="inactive">inactive</option>
+                                <option value="swap_used">swap_used</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">From</span>
+                                <input type="text" id="mem-from" class="form_datetime form-control" placeholder="From">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">To</span>
+                                <input type="text" id="mem-to" class="form_datetime form-control" placeholder="To">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <button class="btn btn-primary" id="memory-search">搜索</button>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default btn-time" btn-type="mems" timerange="one_hour">最近一小时</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="mems" timerange="six_hour">最近六小时</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="mems" timerange="one_day">最近一天</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="mems" timerange="one_week">最近一周</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="mems" timerange="two_week">最近两周</button>
+                                <button type="button" class="btn btn-default btn-time" btn-type="mems" timerange="one_month">最近一个月</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="memory-container" style="min-width:800px;height:400px"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+ </div>
+
+</body>
+</html>
